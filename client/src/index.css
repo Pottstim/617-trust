@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+/*
+ * 617 East Trust — "Foundation Plus" Design System
+ * Architectural paper, structured by technology, warmed by human hands.
+ * Three-tier token architecture: primitives → semantics → components.
+ */
+
+/* ─────────── Tier 1: Primitives (atomic values) ─────────── */
+:root {
+  --color-paper: #f7f5f2;
+  --color-ink: #1a1a1a;
+  --color-graphite: #4a4a4a;
+  --color-smoke: #8a8a8a;
+  --color-drafting-blue: #2e5a8b;
+  --color-brass: #b87333;
+  --color-sage: #7a8b7a;
+  --color-chalk: #ffffff;
+
+  /* Spacing (4px base grid) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+
+  /* Border radii */
+  --radius-tech: 4px;
+  --radius-functional: 8px;
+  --radius-human: 16px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(26 26 26 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(26 26 26 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(26 26 26 / 0.1);
+  --shadow-warm: 0 4px 20px rgb(184 115 51 / 0.15);
+  --shadow-glow: 0 0 20px rgb(46 90 139 / 0.3);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────── Tier 2: Semantic tokens (map primitives to roles) ─────────── */
+:root {
+  --semantic-bg-primary: var(--color-paper);
+  --semantic-bg-elevated: var(--color-chalk);
+  --semantic-text-primary: var(--color-ink);
+  --semantic-text-secondary: var(--color-graphite);
+  --semantic-text-tertiary: var(--color-smoke);
+  --semantic-border-subtle: rgb(74 74 74 / 0.1);
+  --semantic-border-strong: var(--color-ink);
+  --semantic-accent-tech: var(--color-drafting-blue);
+  --semantic-accent-human: var(--color-brass);
+  --semantic-accent-local: var(--color-sage);
+}
+
+/* ─────────── Tailwind theme mapping ─────────── */
+@theme inline {
+  --color-background: var(--semantic-bg-primary);
+  --color-foreground: var(--semantic-text-primary);
+  --color-card: var(--semantic-bg-elevated);
+  --color-card-foreground: var(--semantic-text-primary);
+  --color-muted: var(--color-smoke);
+  --color-muted-foreground: var(--semantic-text-secondary);
+  --color-border: var(--semantic-border-subtle);
+  --color-primary: var(--semantic-accent-human);
+  --color-primary-foreground: var(--color-chalk);
+  --color-secondary: var(--semantic-accent-tech);
+  --color-secondary-foreground: var(--color-chalk);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  --radius-lg: var(--radius-human);
+  --radius-md: var(--radius-functional);
+  --radius-sm: var(--radius-tech);
+}
+
+/* ─────────── Base ─────────── */
+@layer base {
+  * {
+    border-color: var(--semantic-border-subtle);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--semantic-bg-primary);
+    color: var(--semantic-text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -1.44px;
+  }
+  h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  h2 { font-size: clamp(2rem, 4.5vw, 3rem); letter-spacing: -0.72px; }
+  h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); letter-spacing: -0.6px; }
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.6px;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection {
+    background-color: rgb(184 115 51 / 0.25);
+    color: var(--color-ink);
+  }
+}
+
+/* ─────────── Tier 3: Component utilities ─────────── */
+@layer components {
+  .container-trust {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--spacing-4);
+    max-width: 1200px;
+  }
+  @media (min-width: 768px) {
+    .container-trust { padding-inline: var(--spacing-8); }
+  }
+
+  /* Primary Button (Pill) — the "human/trust" side */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    background-color: var(--color-brass);
+    color: var(--color-chalk);
+    border-radius: var(--radius-pill);
+    padding: var(--spacing-4) var(--spacing-6);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.15px;
+    transition: box-shadow var(--transition-base), transform var(--transition-fast), background-color var(--transition-base);
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background-color: #a66528;
+    box-shadow: var(--shadow-warm);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* Ghost Button (Pill) — the "technology" side */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    background-color: transparent;
+    color: var(--color-drafting-blue);
+    border: 1px solid var(--color-drafting-blue);
+    border-radius: var(--radius-pill);
+    padding: var(--spacing-4) var(--spacing-6);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.15px;
+    transition: box-shadow var(--transition-base), background-color var(--transition-base);
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    background-color: rgb(46 90 139 / 0.06);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Service Card */
+  .card-trust {
+    background-color: var(--color-chalk);
+    border-radius: var(--radius-human);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--semantic-border-subtle);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+  .card-trust:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  /* Technical monospace tag e.g. [01] */
+  .tag-mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-drafting-blue);
+  }
+
+  /* Trust Bar */
+  .trust-bar {
+    background-color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--color-graphite);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Section eyebrow label */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+
+  /* Drafting-blue hairline divider */
+  .hairline-blue {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-drafting-blue), transparent);
+    opacity: 0.4;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  /* Scroll progress indicator */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--color-brass);
+    z-index: 100;
+    transition: width 100ms linear;
+  }
+}
