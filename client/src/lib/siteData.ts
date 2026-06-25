@@ -1,105 +1,83 @@
 /**
  * 617 East Trust — centralized brand + content data.
- * Source of truth for the brand strategy master document.
+ * Updated: Form / Grow / Maintain three-phase positioning.
  */
 
-export type Service = {
+export type Phase = {
   id: string;
-  slug: string;
   index: string;
   name: string;
   tagline: string;
   description: string;
   included: string[];
-  difference: string;
-  cta: string;
-  flagship?: boolean;
-  leadGen?: boolean;
+  closingLine: string;
+  color: string; // CSS var token for accent color
 };
 
-export const SERVICES: Service[] = [
+export const PHASES: Phase[] = [
   {
-    id: "business-formation",
-    slug: "business-formation",
+    id: "form",
     index: "01",
-    name: "Business Formation",
-    tagline: "Filed in Minutes by Tech. Supported for Years by People.",
+    name: "Form",
+    tagline: "Get the business standing.",
     description:
-      "Start your business the right way. We file your LLC or corporation with the Secretary of State in 24 hours, then stick around to help you navigate EIN applications, operating agreements, and compliance deadlines.",
+      "The foundation work most consultants do — and then abandon.",
     included: [
-      "Entity selection consultation",
-      "Name availability search",
-      "Articles of Organization filing",
-      "EIN acquisition",
-      "Operating agreement templates",
-      "Compliance calendar setup",
+      "Entity Formation (LLC, S-Corp, C-Corp, Nonprofit)",
+      "Compliance Calendar Setup",
+      "Registered Agent Services",
+      "Business Banking & Treasury Setup",
+      "Credit Building Strategy",
+      "Business Plan Writing",
+      "Trademark Filing",
+      "Insurance Needs Analysis",
+      "Initial HR & Employee Handbook Setup",
     ],
-    difference:
-      "Platforms file and forget. We file and follow up. Six months later, when you get your first compliance notice, you'll still have our number.",
-    cta: "Form Your Business",
+    closingLine:
+      "You don't just get filed. You get positioned — legally, financially, and operationally — for what comes next.",
+    color: "var(--color-drafting-blue)",
   },
   {
-    id: "sba-funding",
-    slug: "sba-funding",
+    id: "grow",
     index: "02",
-    name: "SBA Funding & Capital",
-    tagline: "Tech Finds the Capital. People Get You Approved.",
+    name: "Grow",
+    tagline: "Get the business moving.",
     description:
-      "SBA loans are the best capital source for small businesses — and the hardest to secure. After 15 years in Charlotte banking, we know what lenders actually want to see. We use technology to match you with the right SBA program and lender, then use relationships to advocate for your approval.",
+      "The momentum work that separates real businesses from hobbies.",
     included: [
-      "Pre-qualification assessment (no credit pull)",
-      "SBA program selection (7(a), 504, Microloan)",
-      "Lender matching",
-      "Application package preparation",
-      "Financial projections and cash flow analysis",
-      "Lender relationship management",
+      "SBA Loan Consulting & Application Support",
+      "Financial Projections & Cash Flow Modeling",
+      "Website Design & Development",
+      "SEO & Local Search Optimization",
+      "Paid Advertising Management (Google & Meta)",
+      "Content Marketing & Social Media",
+      "Grant Writing & Alternative Funding",
+      "Reputation Management & Review Generation",
     ],
-    difference:
-      "Most consultants fill out forms. We make phone calls. When your application needs clarification, we know exactly who to talk to and what they need to hear.",
-    cta: "Get Pre-Qualified",
-    flagship: true,
+    closingLine:
+      "Funding, visibility, and momentum — built by someone who actually understands your business model, not a freelancer who showed up for one project.",
+    color: "var(--color-brass)",
   },
   {
-    id: "web-design-seo",
-    slug: "web-design-seo",
+    id: "maintain",
     index: "03",
-    name: "Web Design & SEO",
-    tagline: "Algorithms Rank You. People Make You Matter.",
+    name: "Maintain",
+    tagline: "Keep the business standing.",
     description:
-      "Your website isn't a digital brochure — it's your 24/7 sales representative. We build fast, beautiful, conversion-focused websites that rank in search results and turn visitors into customers.",
+      "The ongoing work nobody else talks about. The reason most small businesses fail in years 2–5. The difference between a business that survives and one that endures.",
     included: [
-      "Custom website design (no templates)",
-      "Mobile-first responsive development",
-      "Technical SEO foundation",
-      "Content strategy and copywriting",
-      "Local SEO optimization",
-      "Google Business Profile setup",
-      "Monthly performance reporting",
+      "Monthly Bookkeeping & Accounting",
+      "Annual Report Filings & Compliance Monitoring",
+      "Fractional CFO Services (Forecasting, KPIs, Lender Reporting)",
+      "Tax Planning & CPA Coordination",
+      "Ongoing Compliance Monitoring",
+      "Business Valuation",
+      "Succession & Exit Planning",
+      "Quarterly Business Reviews",
     ],
-    difference:
-      "Agencies build websites. We build business tools. Every design decision ties back to your revenue goals.",
-    cta: "Get a Free Website Audit",
-    leadGen: true,
-  },
-  {
-    id: "consumer-credit",
-    slug: "consumer-credit",
-    index: "04",
-    name: "Consumer Consulting & Credit Repair",
-    tagline: "Software Reads the Data. People Fix the Future.",
-    description:
-      "Bad credit isn't a moral failing — it's a solvable problem. We use technology to analyze your credit profile and human expertise to dispute inaccuracies and build positive history.",
-    included: [
-      "Comprehensive credit report analysis",
-      "Dispute strategy and execution",
-      "Creditor negotiation support",
-      "Credit building roadmap",
-      "Monthly progress tracking",
-      "SBA loan preparation (credit-focused)",
-    ],
-    difference:
-      "Automated dispute services send template letters. We craft strategic disputes based on consumer law and creditor psychology.",
-    cta: "Fix Your Credit",
+    closingLine:
+      "Formation is a day. Growth is a season. Maintenance is the life of your business — and nobody else stays for it.",
+    color: "var(--color-sage)",
   },
 ];
 
@@ -114,44 +92,59 @@ export type Testimonial = {
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "I used LegalZoom to form my first business. When I needed an SBA loan, they couldn't help. 617 East Trust not only got me approved — they got me approved with a lender I'd never have found on my own. And they answered the phone at 6 PM when I panicked about paperwork.",
-    name: "Jennifer K.",
-    role: "Restaurant Owner",
-    location: "Charlotte, NC",
-    detail: "$350K SBA 7(a) Loan",
+      "617 East Trust helped me form my LLC, build my first real website, and secure an SBA loan — all in the same quarter. Robert at the cabinetry shop referred me, and I'm referring everyone I know.",
+    name: "Sarah M.",
+    role: "Retail Owner",
+    location: "Pinehurst, NC",
+    detail: "Formation + Web + SBA Client",
   },
   {
     quote:
-      "Our website was a template disaster. 617 rebuilt it, optimized it, and within 3 months we were ranking #1 for 'custom cabinetry Raleigh.' But the real value? They actually understand our business. Our project manager knows what a dovetail joint is.",
+      "They didn't just file paperwork and leave. Six months in, they caught a compliance issue I didn't even know about. That's the difference.",
     name: "Robert M.",
-    role: "Custom Furniture Business Owner",
-    location: "Raleigh, NC",
-    detail: "Web Design + SEO Client",
+    role: "Cabinetry Shop Owner",
+    location: "Sandhills, NC",
+    detail: "Formation + Maintain Client",
   },
   {
     quote:
-      "After a divorce destroyed my credit, I thought I'd never qualify for business funding. They didn't just dispute errors — they taught me how to rebuild. Six months later, I'm pre-approved for my first SBA loan. Changed my life.",
-    name: "Amanda T.",
-    role: "Small Business Owner",
-    location: "Wilmington, NC",
-    detail: "Credit Repair + SBA Funding Client",
+      "The fractional CFO service changed how I run my business. I finally have forecasts I trust and someone who actually reads my numbers with me every quarter.",
+    name: "James T.",
+    role: "Service Company Owner",
+    location: "Raleigh, NC",
+    detail: "Fractional CFO + Maintain Client",
+  },
+  {
+    quote:
+      "I came for formation. I stayed for the bookkeeping. Best decision I made.",
+    name: "Maria L.",
+    role: "Restaurant Owner",
+    location: "Fayetteville, NC",
+    detail: "Formation + Maintain Client",
   },
 ];
 
 export const HERO_TRUST_SIGNALS: Testimonial[] = [
-  { quote: "They treated my business like it mattered.", name: "Sarah M.", role: "", location: "Raleigh, NC", detail: "" },
-  { quote: "Finally, someone who answers the phone.", name: "James T.", role: "", location: "Charlotte, NC", detail: "" },
-  { quote: "Got my SBA loan approved when the banks said no.", name: "Marcus R.", role: "", location: "Wilmington, NC", detail: "" },
+  { quote: "They treated my business like it mattered.", name: "Sarah M.", role: "", location: "Pinehurst, NC", detail: "" },
+  { quote: "Finally, someone who answers the phone.", name: "James T.", role: "", location: "Raleigh, NC", detail: "" },
+  { quote: "Caught a compliance issue I didn't even know about.", name: "Robert M.", role: "", location: "Sandhills, NC", detail: "" },
 ];
 
 export const COMPARISON_ROWS: { label: string; platform: string; consultant: string; trust: string }[] = [
-  { label: "Speed", platform: "⚡⚡⚡⚡⚡", consultant: "⚡⚡", trust: "⚡⚡⚡⚡⚡" },
-  { label: "Technology", platform: "Cutting-edge", consultant: "Outdated", trust: "Cutting-edge" },
-  { label: "Human Relationship", platform: "❌ None", consultant: "✅ Handshake", trust: "✅ Partnership" },
-  { label: "Availability", platform: "24/7 dashboard", consultant: "9–5, maybe", trust: "Direct phone/text" },
-  { label: "Industry Knowledge", platform: "Generic", consultant: "Local experience", trust: "Banking + tech" },
-  { label: "Pricing Transparency", platform: "Hidden fees", consultant: '"It depends"', trust: "Clear, upfront" },
-  { label: "What You Get", platform: "A login", consultant: "A handshake", trust: "A partner" },
+  { label: "Formation", platform: "✓", consultant: "✓", trust: "✓" },
+  { label: "Compliance Setup", platform: "Partial", consultant: "✓", trust: "✓" },
+  { label: "SBA Consulting", platform: "✗", consultant: "Sometimes", trust: "✓" },
+  { label: "Web & SEO", platform: "✗", consultant: "Sometimes", trust: "✓" },
+  { label: "Credit Building", platform: "✗", consultant: "Rarely", trust: "✓" },
+  { label: "Bookkeeping", platform: "✗", consultant: "Sometimes", trust: "✓" },
+  { label: "Fractional CFO", platform: "✗", consultant: "✗", trust: "✓" },
+  { label: "Ongoing Compliance", platform: "✗", consultant: "✗", trust: "✓" },
+  { label: "Tax Coordination", platform: "✗", consultant: "Sometimes", trust: "✓" },
+  { label: "Valuation & Succession", platform: "✗", consultant: "✗", trust: "✓" },
+  { label: "Stays After Paperwork", platform: "✗", consultant: "Rarely", trust: "✓" },
+  { label: "Clear, Upfront Pricing", platform: "✓", consultant: "Rarely", trust: "✓" },
+  { label: "Charlotte Banking Experience", platform: "✗", consultant: "Rarely", trust: "✓" },
+  { label: "Sandhills Roots", platform: "✗", consultant: "Sometimes", trust: "✓" },
 ];
 
 export const STEPS: { num: string; title: string; body: string }[] = [
@@ -206,15 +199,13 @@ export const SITE = {
   emailHref: "mailto:hello@617easttrust.com",
   smsHref: "sms:+19103151800",
   location: "Sandhills, North Carolina",
-  servingArea: "Based in North Carolina. Serving businesses nationwide.",
-  // Primary thesis line (logo mark / footer)
-  thesis: "Technology Builds Fast. People Build Trust.",
-  thesisFull: "Technology Builds Everything Faster. People Build the One Thing That Lasts: Trust.",
-  preHeader: "Powered by Technology. Delivered by People.",
+  servingArea: "Based in the Sandhills. Serving the Sandhills, Raleigh, and Fayetteville regions.",
+  thesis: "Technology builds fast. People build trust.",
+  thesisFull: "Technology builds fast. People build trust. We're the people.",
+  preHeader: "Form. Grow. Maintain.",
   trustBar: "Real People. Real Answers. Every time.",
-  logoMark: "People First. In a Technology World.",
-  // Content collections (attached for SITE.* access in pages)
-  services: SERVICES,
+  logoMark: "Form. Grow. Maintain.",
+  phases: PHASES,
   testimonials: TESTIMONIALS,
   trustBadges: TRUST_BADGES,
   credentials: CREDENTIALS,
