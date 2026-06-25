@@ -19,11 +19,14 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: false,
     minify: "esbuild",
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
           router: ["wouter"],
+          three: ["three"],
+          "three-fiber": ["@react-three/fiber", "@react-three/drei"],
         },
       },
     },
