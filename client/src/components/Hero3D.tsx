@@ -10,6 +10,17 @@ import { Button, ButtonLink } from './ui/Button';
 import { SITE } from '@/lib/siteData';
 import { NCBackground } from './NCBackground';
 
+/**
+ * Hero3D Component
+ * 
+ * Contains the main hero section with:
+ * - NCBackground (Charlotte skyline + Pinehurst golf layers)
+ * - Three.js particle field
+ * - Animated headline and CTAs
+ * 
+ * Fixed duplicate export issue on 2026-06-26
+ */
+
 // Existing ParticleField (kept and slightly enhanced)
 function ParticleField({ count = 1800 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null!);
