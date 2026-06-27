@@ -208,5 +208,8 @@ export const SITE = {
   phases: PHASES,
   testimonials: TESTIMONIALS,
   trustBadges: TRUST_BADGES,
-  credentials: CREDENTIALS,
+  heroTrustSignals: HERO_TRUST_SIGNALS,
+  howItWorks: STEPS,
+  services: PHASES.map((p) => ({ slug: p.id, name: p.name })),
+  ogImage: "https://617east.com/og-image.jpg",
 } as const;
