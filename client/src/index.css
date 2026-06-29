@@ -4,35 +4,35 @@
  * Big city polish with country roots. All original wording preserved.
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 /* ─────── Tier 1: Primitives ─────── */
 :root {
-  /* Light, warm neutrals */
-  --color-void: #faf8f5;
-  --color-carbon: #f5f2ed;
-  --color-obsidian: #ffffff;
-  --color-graphite: #f0ece6;
-  --color-steel: #e8e4dc;
-  --color-smoke: #d4cfc6;
-  --color-ash: #9a948a;
-  --color-bone: #6b655c;
-  --color-fog: #5a544c;
-  --color-linen: #2a2620;
-  --color-chalk: #1a1714;
-  --color-paper: #141210;
-  --color-ink: #000000;
+  /* Warm dark neutrals — the default dark mode */
+  --color-void: #0a0908;
+  --color-carbon: #11100f;
+  --color-obsidian: #161514;
+  --color-graphite: #1e1c1a;
+  --color-steel: #2a2724;
+  --color-smoke: #3d3935;
+  --color-ash: #6b655c;
+  --color-bone: #9a948a;
+  --color-fog: #b8b2a7;
+  --color-linen: #d4cfc6;
+  --color-chalk: #e8e4dc;
+  --color-paper: #f0ece6;
+  --color-ink: #faf8f5;
 
   /* Brand Accent — warm brass */
-  --color-brass: #8a6640;
-  --color-brass-dim: #6b4f30;
-  --color-brass-glow: #b8975e;
-  --gradient-brass: linear-gradient(103deg, #8a6640 0%, #b8975e 40%, #8a6640 70%, transparent);
+  --color-brass: #b8975e;
+  --color-brass-dim: #8a6640;
+  --color-brass-glow: #d4b87a;
+  --gradient-brass: linear-gradient(103deg, #8a6640 0%, #b8975e 40%, #d4b87a 70%, transparent);
 
   /* Supporting accents */
-  --color-drafting-blue: #3a6a9e;
-  --color-sage: #5a7b5a;
+  --color-drafting-blue: #5a8ab8;
+  --color-sage: #6b8f6b;
 
   /* Spacing (4px base) */
   --spacing-1: 4px;
@@ -54,14 +54,14 @@
   --radius-human: 16px;
   --radius-pill: 9999px;
 
-  /* Light-mode shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), inset 0 -1px 0 rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), inset 0 -2px 0 rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 40px rgba(0,0,0,0.10);
-  --shadow-card: rgba(0,0,0,0.06) 0px 4px 16px 0px, rgba(0,0,0,0.03) 0px 1px 0px inset;
-  --shadow-brass: 0 0 0 1px rgba(138,102,64,0.25), 0 4px 16px rgba(138,102,64,0.12);
-  --shadow-warm: 0 4px 16px rgba(138,102,64,0.15);
-  --shadow-glow: 0 0 30px rgba(138,102,64,0.08);
+  /* Dark-mode shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4), inset 0 -2px 0 rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+  --shadow-card: rgba(0,0,0,0.35) 0px 4px 16px 0px, rgba(0,0,0,0.2) 0px 1px 0px inset;
+  --shadow-brass: 0 0 0 1px rgba(184,151,94,0.3), 0 4px 16px rgba(184,151,94,0.15);
+  --shadow-warm: 0 4px 16px rgba(184,151,94,0.18);
+  --shadow-glow: 0 0 30px rgba(184,151,94,0.1);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -113,8 +113,8 @@
   --semantic-text-secondary: var(--color-fog);
   --semantic-text-tertiary: var(--color-bone);
   --semantic-text-muted: var(--color-ash);
-  --semantic-border-subtle: rgba(0,0,0,0.06);
-  --semantic-border-strong: rgba(0,0,0,0.12);
+  --semantic-border-subtle: rgba(255,255,255,0.06);
+  --semantic-border-strong: rgba(255,255,255,0.12);
   --semantic-accent-primary: var(--color-brass);
   --semantic-accent-tech: var(--color-drafting-blue);
   --semantic-accent-local: var(--color-sage);
@@ -130,11 +130,11 @@
   --color-muted-foreground: var(--semantic-text-secondary);
   --color-border: var(--semantic-border-subtle);
   --color-primary: var(--semantic-accent-primary);
-  --color-primary-foreground: #ffffff;
+  --color-primary-foreground: #0a0908;
   --color-secondary: var(--semantic-accent-tech);
   --color-secondary-foreground: var(--color-chalk);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
 
@@ -206,7 +206,7 @@
   }
 
   ::selection {
-    background-color: rgba(184, 151, 94, 0.3);
+    background-color: rgba(184, 151, 94, 0.35);
     color: var(--color-ink);
   }
 }
@@ -266,7 +266,7 @@
 
   .btn-ghost:hover {
     background-color: var(--color-drafting-blue);
-    color: #ffffff;
+    color: var(--color-void);
     box-shadow: var(--shadow-md);
   }
 
@@ -277,7 +277,7 @@
     justify-content: center;
     gap: var(--spacing-2);
     background-color: var(--color-ink);
-    color: var(--color-paper);
+    color: var(--color-void);
     border-radius: var(--radius-pill);
     padding: 14px 28px;
     font-family: var(--font-sans);
@@ -286,11 +286,11 @@
     letter-spacing: -0.015em;
     transition: all var(--transition-base);
     cursor: pointer;
-    border: 1px solid var(--color-ink);
+    border: 1px solid var(--color-smoke);
   }
 
   .btn-dark:hover {
-    background-color: var(--color-graphite);
+    background-color: var(--color-chalk);
     border-color: var(--color-brass);
   }
 
@@ -336,6 +336,25 @@
     text-transform: uppercase;
     color: var(--color-brass);
     margin-bottom: 0.5rem;
+  }
+
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--gradient-brass);
+    z-index: 100;
+    transition: width 100ms linear;
+  }
+
+  /* Star rating */
+  .star-filled {
+    color: var(--color-brass);
+  }
+  .star-empty {
+    color: var(--color-smoke);
   }
 }
 
