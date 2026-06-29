@@ -1,52 +1,297 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
-import { SITE } from "@/lib/siteData";
+import {
+  SITE, PHASES, TESTIMONIALS, COMPARISON_ROWS,
+  PROBLEM_STATS, FAQ_ITEMS,
+} from "@/lib/siteData";
 import { Hero3D } from "@/components/Hero3D";
 import {
-  Phone, Check, ShieldCheck, ArrowRight,
-  TrendingUp, Settings, Users
+  Phone, Check, ArrowRight, ChevronDown,
+  TrendingUp, Building2, Shield,
 } from "lucide-react";
-import { NCBackground } from "@/components/NCBackground";
 
-// Problem Section Component
-const Problem = () => (
-  <section id="problem" className="relative py-20 md:py-28 border-t border-white/10">
-    <div className="mx-auto max-w-4xl px-6">
-      <div className="section-heading">[01] The Problem</div>
-      <h2 className="text-balance">Business doesn't fail at launch.<br />It fails in the silence after.</h2>
+const PhaseIcon = ({ type }: { type: string }) => {
+  const cls = "w-6 h-6";
+  if (type === "building") return <Building2 className={cls} />;
+  if (type === "trending") return <TrendingUp className={cls} />;
+  return <Shield className={cls} />;
+};
 
-      <div className="mt-8 max-w-3xl space-y-6 text-lg text-[#f4f1eb]/90">
-        <p>
-          Automated platforms form your LLC in twelve minutes and send you on your way. Local consultants write your business plan and move to the next client. Nobody mentions that year two is when compliance slips, cash flow tightens, tax surprises hit, and the owner starts drowning in operational drift.
-        </p>
-        <p>
-          The formation was easy. The staying alive is hard. And nobody stays with you for it.
-        </p>
-        <p className="font-medium text-[#f4f1eb]">We do.</p>
+// Problem Section — Loss Aversion + Social Proof (stats)
+const Problem = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  return (
+    <section id="problem" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)]" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">The Problem</p>
+          <h2 className="text-balance mt-3">Business doesn't fail at launch.<br />It fails in the silence after.</h2>
+        </motion.div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {PROBLEM_STATS.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 * i }}
+              className="card-cinematic p-6"
+            >
+              <p className="text-3xl font-serif text-[var(--color-brass)]">{s.value}</p>
+              <p className="mt-2 text-sm text-[var(--semantic-text-secondary)] leading-relaxed">{s.label}</p>
+              {s.source && <p className="mt-2 text-[10px] font-mono uppercase tracking-wider text-[var(--semantic-text-tertiary)]">{s.source}</p>}
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          className="mt-10 max-w-2xl text-lg text-[var(--semantic-text-secondary)]"
+        >
+          Automated platforms form your LLC in twelve minutes and send you on your way. Local consultants write your business plan and move to the next client. Nobody mentions that year two is when compliance slips, cash flow tightens, and the owner starts drowning.
+        </motion.p>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-// How It Works Section
-const HowItWorks = () => (
-  <section id="how-it-works" className="relative py-20 md:py-28 border-t border-white/10">
-    <div className="mx-auto max-w-5xl px-6">
-      <div className="section-heading">[07] How It Works</div>
-      <h2 className="text-balance">Three Steps to a Business That Lasts.</h2>
+// Phases Section — Three service tiers (Decoy Effect + Commitment/Consistency)
+const Phases = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <section id="services" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)]" ref={ref}>
+      <div className="mx-auto max-w-6xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">What We Do</p>
+          <h2 className="text-balance mt-3">Three phases. One partner. No handoffs.</h2>
+          <p className="mt-4 max-w-2xl text-[var(--semantic-text-secondary)]">
+            Most businesses get abandoned after formation. We stay through every phase \u2014 because the work that matters most happens after the paperwork.
+          </p>
+        </motion.div>
 
-      <div className="mt-12 grid gap-8 md:grid-cols-3">
-        {SITE.howItWorks.map((step, index) => (
-          <div key={index} className="card-cinematic p-8">
-            <div className="text-[#b8975e] text-sm tracking-widest mb-4">0{index + 1}</div>
-            <h3 className="text-2xl mb-4">{step.title}</h3>
-            <p className="text-[#f4f1eb]/85 leading-relaxed">{step.body}</p>
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {PHASES.map((phase, i) => (
+            <motion.div
+              key={phase.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.12 * i }}
+              className={`card-cinematic p-8 flex flex-col ${i === 1 ? "lg:-translate-y-2 border-[var(--color-brass)]/40" : ""}`}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-xs font-mono text-[var(--color-brass)]">{phase.index}</span>
+                <h3 className="text-2xl">{phase.name}</h3>
+              </div>
+              <p className="text-sm text-[var(--color-brass)] mb-3">{phase.tagline}</p>
+              <p className="text-sm text-[var(--semantic-text-secondary)] mb-5">{phase.description}</p>
+              <ul className="space-y-2 mb-6 flex-1">
+                {phase.included.slice(0, 5).map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-[var(--semantic-text-secondary)]">
+                    <Check size={14} className="text-[var(--color-brass)] mt-0.5 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+                {phase.included.length > 5 && (
+                  <li className="text-xs text-[var(--semantic-text-tertiary)]">+ {phase.included.length - 5} more</li>
+                )}
+              </ul>
+              <p className="text-sm italic text-[var(--semantic-text-secondary)] border-t border-[var(--semantic-border-subtle)] pt-4">
+                {phase.closingLine}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Why Us Section — Contrast Effect + Authority Bias (comparison table)
+const WhyUs = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <section id="why-us" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)] bg-[var(--semantic-bg-elevated)]" ref={ref}>
+      <div className="mx-auto max-w-4xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">Why Us</p>
+          <h2 className="text-balance mt-3">You have three options. Only one stays.</h2>
+          <p className="mt-4 text-[var(--semantic-text-secondary)]">Compare what you get from automated platforms, typical consultants, and 617 East Trust.</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-10 overflow-hidden rounded-[var(--radius-card)] border border-[var(--semantic-border-subtle)]"
+        >
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-[var(--semantic-border-subtle)] text-left">
+                <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-[var(--semantic-text-tertiary)]">Feature</th>
+                <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-[var(--semantic-text-tertiary)] text-center">DIY Platform</th>
+                <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-[var(--semantic-text-tertiary)] text-center">Consultant</th>
+                <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-center text-[var(--color-brass)] bg-[var(--color-brass)]/5">617 East Trust</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISON_ROWS.map((row, i) => (
+                <tr key={i} className="border-b border-[var(--semantic-border-subtle)]/50 last:border-0">
+                  <td className="px-4 py-2.5 text-[var(--semantic-text-secondary)]">{row.label}</td>
+                  <td className="px-4 py-2.5 text-center text-[var(--semantic-text-tertiary)]">{row.platform}</td>
+                  <td className="px-4 py-2.5 text-center text-[var(--semantic-text-tertiary)]">{row.consultant}</td>
+                  <td className="px-4 py-2.5 text-center text-[var(--color-brass)] bg-[var(--color-brass)]/5 font-medium">{row.trust}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Testimonials Section — Social Proof + Bandwagon Effect
+const Testimonials = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <section id="testimonials" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)]" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">What Clients Say</p>
+          <h2 className="text-balance mt-3">Business owners who stayed.</h2>
+        </motion.div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.blockquote
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 * i }}
+              className="card-cinematic p-8 flex flex-col"
+            >
+              <div className="flex items-center gap-1 text-[var(--color-brass)] mb-4">
+                {"★★★★★"}
+              </div>
+              <p className="text-[var(--semantic-text-primary)] leading-relaxed flex-1">{t.quote}</p>
+              <footer className="mt-6 pt-4 border-t border-[var(--semantic-border-subtle)]">
+                <p className="font-medium text-sm">{t.name}</p>
+                <p className="text-xs text-[var(--semantic-text-tertiary)]">{t.role} {t.location && `· ${t.location}`}</p>
+              </footer>
+            </motion.blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// How It Works — Activation Energy (reduce friction perception)
+const HowItWorks = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  return (
+    <section id="how-it-works" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)] bg-[var(--semantic-bg-elevated)]" ref={ref}>
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">How It Works</p>
+          <h2 className="text-balance mt-3">Three steps. No bureaucracy.</h2>
+        </motion.div>
+
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          {SITE.howItWorks.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.12 * index }}
+              className="relative"
+            >
+              <div className="text-[var(--color-brass)] text-4xl font-serif mb-3">{step.num}</div>
+              <h3 className="text-xl mb-3">{step.title}</h3>
+              <p className="text-sm text-[var(--semantic-text-secondary)] leading-relaxed">{step.body}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// FAQ Section — Zeigarnik Effect (open loops) + Trust (transparency)
+const FAQ = () => {
+  const [open, setOpen] = useState<number | null>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  return (
+    <section id="faq" className="relative py-20 md:py-28 border-t border-[var(--semantic-border-subtle)]" ref={ref}>
+      <div className="mx-auto max-w-3xl px-6">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <p className="section-heading">Questions</p>
+          <h2 className="text-balance mt-3">Honest answers. No runaround.</h2>
+        </motion.div>
+
+        <div className="mt-10 space-y-3">
+          {FAQ_ITEMS.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.06 * i }}
+              className="border border-[var(--semantic-border-subtle)] rounded-[var(--radius-functional)] overflow-hidden"
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-[var(--semantic-bg-elevated)] transition-colors"
+                aria-expanded={open === i}
+              >
+                <span className="font-medium text-sm pr-4">{item.q}</span>
+                <ChevronDown size={18} className={`shrink-0 text-[var(--color-brass)] transition-transform duration-200 ${open === i ? "rotate-180" : ""}`} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${open === i ? "max-h-96" : "max-h-0"}`}>
+                <p className="px-6 pb-4 text-sm text-[var(--semantic-text-secondary)] leading-relaxed">{item.a}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Final CTA — Loss Aversion + Scarcity (genuine) + Commitment (small ask)
+const FinalCTA = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  return (
+    <section className="relative py-24 md:py-32 border-t border-[var(--semantic-border-subtle)]" ref={ref}>
+      <div className="mx-auto max-w-3xl px-6 text-center">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+          <h2 className="text-balance">Your business deserves more than a filing confirmation.</h2>
+          <p className="mt-5 text-lg text-[var(--semantic-text-secondary)]">
+            Every month you wait is a month of missed compliance, missed funding, and missed momentum. The consultation is free. The cost of waiting is not.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <ButtonLink href="/contact" size="lg" className="min-w-[240px]">
+              Book a Free Consultation <ArrowRight size={18} className="ml-2" />
+            </ButtonLink>
+            <ButtonLink href={SITE.phoneHref} variant="ghost" size="lg" className="min-w-[240px]">
+              <Phone size={18} className="mr-2" /> {SITE.phone}
+            </ButtonLink>
           </div>
-        ))}
+          <p className="mt-6 text-xs text-[var(--semantic-text-tertiary)]">Free consultation. No obligation. Real answers within one business day.</p>
+        </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default function Home() {
   return (
@@ -55,19 +300,9 @@ export default function Home() {
       <Problem />
       <Phases />
       <WhyUs />
-      <Story />
       <Testimonials />
-      <HowItWorks />
       <FAQ />
       <FinalCTA />
     </>
   );
 }
-
-// Placeholder components (these would normally be in separate files or expanded)
-const Phases = () => <div className="py-20 text-center text-[#f4f1eb]/60">Phases Section (to be expanded)</div>;
-const WhyUs = () => <div className="py-20 text-center text-[#f4f1eb]/60">Why Us Section (to be expanded)</div>;
-const Story = () => <div className="py-20 text-center text-[#f4f1eb]/60">Our Story Section (to be expanded)</div>;
-const Testimonials = () => <div className="py-20 text-center text-[#f4f1eb]/60">Testimonials Section (to be expanded)</div>;
-const FAQ = () => <div className="py-20 text-center text-[#f4f1eb]/60">FAQ Section (to be expanded)</div>;
-const FinalCTA = () => <div className="py-20 text-center text-[#f4f1eb]/60">Final CTA Section (to be expanded)</div>;

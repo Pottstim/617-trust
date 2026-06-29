@@ -122,18 +122,15 @@ export function Hero3D() {
             {SITE.phone} — We answer.
           </ButtonLink>
         </div>
+      </div>
 
-        {/* Trust signals */}
-        <div className="mt-16 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
-          {SITE.heroTrustSignals.map((signal, index) => (
-            <div key={index} className="card-cinematic p-5 text-sm">
-              <div className="flex items-center gap-1 text-[#b8975e]">
-                {'\u2605'.repeat(5)}
-              </div>
-              <p className="mt-3 text-[#f4f1eb]/90">"{signal.quote}"</p>
-            </div>
-          ))}
-        </div>
+      {/* Trust signals — moved below the hero per taste-skill stack discipline */}
+      <div className="absolute bottom-8 left-0 right-0 z-10 hidden sm:flex justify-center gap-6 px-6">
+        {SITE.heroTrustSignals.map((signal, index) => (
+          <div key={index} className="text-xs text-[var(--color-chalk)]/60 italic max-w-[200px] text-center">
+            "{signal.quote}"
+          </div>
+        ))}
       </div>
 
       {/* Bottom fade */}

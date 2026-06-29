@@ -80,7 +80,7 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-xs text-[var(--color-chalk)]/40">We answer the phone.</p>
+            <p className="mt-4 text-xs text-[var(--color-chalk)]/40">Sandhills, North Carolina</p>
           </div>
         </div>
 

@@ -60,7 +60,7 @@ export default function Navbar() {
             </a>
           ))}
           <ButtonLink href="/contact" size="md">
-            Start With a Conversation
+            Free Consultation
           </ButtonLink>
         </div>
 

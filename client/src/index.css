@@ -348,4 +348,13 @@
   .tracking-tighter {
     letter-spacing: -0.04em;
   }
+
+  /* Tilt-on-hover for testimonial cards (lightweight-3d-effects) */
+  .tilt-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+  .tilt-card:hover {
+    transform: perspective(1000px) rotateX(1deg) rotateY(-1deg) translateY(-2px);
+  }
 }
