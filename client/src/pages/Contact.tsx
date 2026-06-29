@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { SITE } from "@/lib/siteData";
-import { Phone, Mail, MapPin, Send, Check } from "lucide-react";
+import { Phone, Mail, Send, Check, MessageSquare } from "lucide-react";
 
 const services = [
   "Business Formation",
@@ -11,7 +12,7 @@ const services = [
 ];
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [, navigate] = useLocation();
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -38,7 +39,8 @@ export default function Contact() {
         }),
       });
       if (res.ok) {
-        setSubmitted(true);
+        try { (window as any).trackConversion('form_submit', { service: form.service || 'unknown' }); } catch {}
+        navigate("/thank-you");
       } else {
         alert("Something went wrong. Please try again or call us directly.");
       }
@@ -85,97 +87,85 @@ export default function Contact() {
 
         {/* Form */}
         <div className="mt-12 bg-[var(--color-chalk)] rounded-[var(--radius-human)] p-8 sm:p-10 shadow-[var(--shadow-md)] border border-[var(--semantic-border-subtle)]">
-          {submitted ? (
-            <div className="text-center py-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--radius-pill)] bg-[var(--color-brass)]/10 mb-4">
-                <Check className="text-[var(--color-brass)]" size={32} />
-              </div>
-              <h2 className="text-2xl font-sans font-semibold">Thanks — we've got it.</h2>
-              <p className="mt-3 text-[var(--color-graphite)]">
-                We answer the phone. A real person will reach out within one business day.
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <h2 className="text-xl font-sans font-semibold mb-2">Start With a Conversation</h2>
+              <p className="text-sm text-[var(--color-graphite)]">
+                First consultation is free. No obligation. Real answers.
               </p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <h2 className="text-xl font-sans font-semibold mb-2">Start With a Conversation</h2>
-                <p className="text-sm text-[var(--color-graphite)]">
-                  First consultation is free. No obligation. Real answers.
-                </p>
-              </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Name" required>
-                  <input
-                    required
-                    type="text"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
-                  />
-                </Field>
-                <Field label="Email" required>
-                  <input
-                    required
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
-                  />
-                </Field>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Phone">
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
-                  />
-                </Field>
-                <Field label="What do you need?" required>
-                  <select
-                    required
-                    value={form.service}
-                    onChange={(e) => setForm({ ...form, service: e.target.value })}
-                    className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
-                  >
-                    <option value="">Select a service…</option>
-                    {services.map((s) => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                </Field>
-              </div>
-
-              <Field label="Tell us about your business">
-                <textarea
-                  rows={4}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label="Name" required>
+                <input
+                  required
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
                 />
               </Field>
+              <Field label="Email" required>
+                <input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
+                />
+              </Field>
+            </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[var(--color-brass)] text-[var(--color-chalk)] rounded-[var(--radius-pill)] px-6 py-4 font-medium hover:brightness-110 hover:shadow-[var(--shadow-warm)] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {submitting ? (
-                  <>
-                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Sending…
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} /> Start the Conversation
-                  </>
-                )}
-              </button>
-            </form>
-          )}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label="Phone">
+                <input
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
+                />
+              </Field>
+              <Field label="What do you need?" required>
+                <select
+                  required
+                  value={form.service}
+                  onChange={(e) => setForm({ ...form, service: e.target.value })}
+                  className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
+                >
+                  <option value="">Select a service…</option>
+                  {services.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+
+            <Field label="Tell us about your business">
+              <textarea
+                rows={4}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className="w-full rounded-[var(--radius-functional)] border border-[var(--semantic-border-subtle)] bg-[var(--color-paper)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-drafting-blue)]/30"
+              />
+            </Field>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[var(--color-brass)] text-[var(--color-chalk)] rounded-[var(--radius-pill)] px-6 py-4 font-medium hover:brightness-110 hover:shadow-[var(--shadow-warm)] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {submitting ? (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                <>
+                  <Send size={18} /> Start the Conversation
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </section>
     </article>

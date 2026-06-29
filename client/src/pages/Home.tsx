@@ -8,7 +8,7 @@ import {
 import { Hero3D } from "@/components/Hero3D";
 import {
   Phone, Check, ArrowRight, ChevronDown,
-  TrendingUp, Building2, Shield,
+  TrendingUp, Building2, Shield, MessageSquare,
 } from "lucide-react";
 
 const PhaseIcon = ({ type }: { type: string }) => {
@@ -54,6 +54,18 @@ const Problem = () => {
         >
           Automated platforms form your LLC in twelve minutes and send you on your way. Local consultants write your business plan and move to the next client. Nobody mentions that year two is when compliance slips, cash flow tightens, and the owner starts drowning.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6 }}
+          className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-[var(--semantic-text-secondary)]"
+        >
+          <span>Want to talk to a human first?</span>
+          <a href={SITE.phoneHref} className="inline-flex items-center gap-1.5 text-[var(--color-brass)] hover:underline"><Phone size={14} /> Call {SITE.phone}</a>
+          <span className="text-[var(--semantic-border-subtle)]">or</span>
+          <a href={SITE.smsHref} className="inline-flex items-center gap-1.5 text-[var(--color-brass)] hover:underline"><MessageSquare size={14} /> text us</a>
+        </motion.div>
       </div>
     </section>
   );
@@ -282,9 +294,12 @@ const FinalCTA = () => {
             <ButtonLink href="/contact" size="lg" className="min-w-[240px]">
               Book a Free Consultation <ArrowRight size={18} className="ml-2" />
             </ButtonLink>
-            <ButtonLink href={SITE.phoneHref} variant="ghost" size="lg" className="min-w-[240px]">
+            <ButtonLink href={SITE.phoneHref} variant="ghost" size="lg" className="min-w-[220px]">
               <Phone size={18} className="mr-2" /> {SITE.phone}
             </ButtonLink>
+            <a href={SITE.smsHref} className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] px-6 py-4 text-[var(--color-brass)] border border-[var(--color-brass)]/30 hover:bg-[var(--color-brass)]/10 transition-colors font-medium text-base">
+              <MessageSquare size={18} /> Text us
+            </a>
           </div>
           <p className="mt-6 text-xs text-[var(--semantic-text-tertiary)]">Free consultation. No obligation. Real answers within one business day.</p>
         </motion.div>

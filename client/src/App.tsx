@@ -7,6 +7,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import ThankYou from "@/pages/ThankYou";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 
@@ -28,6 +29,10 @@ const ROUTE_META: Record<string, { title: string; desc: string }> = {
   "/contact": {
     title: `Contact | ${SITE.name}`,
     desc: "Ready to grow your business? Contact 617 East Trust for business formation, SBA funding, or credit repair. Call (910) 315-1800.",
+  },
+  "/thank-you": {
+    title: `Thank You | ${SITE.name}`,
+    desc: "Your message has been received. A real person will reach out within one business day.",
   },
   "/privacy": {
     title: `Privacy Policy | ${SITE.name}`,
@@ -91,6 +96,7 @@ export default function App() {
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/thank-you" component={ThankYou} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />
           <Route>

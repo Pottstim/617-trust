@@ -146,6 +146,19 @@
       ]
     }
     </script>
+
+    <!-- Hydration shell: prevent white flash before React loads -->
+    <style>
+      /* Critical: paint dark bg + centered loader before JS */
+      html, body { background: #050505; margin: 0; }
+      #root:empty { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      #root:empty::after {
+        content: "617"; font-family: ui-monospace, monospace;
+        font-size: 14px; letter-spacing: 0.2em; color: #b8975e;
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+    </style>
   </head>
 
   <body>
