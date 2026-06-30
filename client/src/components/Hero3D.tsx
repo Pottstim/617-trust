@@ -4,18 +4,16 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
-import { Button, ButtonLink } from './ui/Button';
+import { ButtonLink } from './ui/Button';
 import { SITE } from '@/lib/siteData';
 import { NCBackground } from './NCBackground';
 
-/**
- * Hero3D Component
- * Re-enabled NCBackground (Charlotte + Pinehurst focused)
- */
+// Theme 2: Evolving Topography of Trust
+// Toggle between original (NCBackground) and Theme 2 (EvolvingTopography)
 
-// Existing ParticleField (kept and slightly enhanced)
+// Original ParticleField (kept for fallback Theme 1)
 function ParticleField({ count = 1800 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null!);
 
@@ -70,24 +68,50 @@ function AnimatedHeadline({ text }: { text: string }) {
   );
 }
 
+// THEME TOGGLE: Set to 'theme2' for Evolving Topography, 'theme1' for original
+const ACTIVE_THEME: 'theme1' | 'theme2' = 'theme2';
+
 export function Hero3D() {
+  const [Theme2Component, setTheme2Component] = useState<React.ComponentType | null>(null);
+  
+  useEffect(() => {
+    // Lazy load Theme 2 component after initial render
+    if (ACTIVE_THEME === 'theme2') {
+      import('./EvolvingTopography').then((mod) => {
+        setTheme2Component(() => mod.EvolvingTopography);
+      });
+    }
+  }, []);
+
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[#050505] pt-16">
-      {/* NCBackground - Charlotte skyline + Pinehurst golf most visible */}
-      <NCBackground variant="hero" intensity={0.75} />
+      {/* Theme 2: Evolving Topography (wireframe city + morphing particles) */}
+      {ACTIVE_THEME === 'theme2' && Theme2Component && (
+        <Theme2Component />
+      )}
+      
+      {/* Theme 1: Original (NCBackground + Particle Field) */}
+      {ACTIVE_THEME === 'theme1' && (
+        <>
+          <NCBackground variant="hero" intensity={0.75} />
+          <div className="absolute inset-0 z-[1]">
+            <Canvas
+              camera={{ position: [0, 0, 14], fov: 52 }}
+              style={{ background: 'transparent' }}
+              gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
+              dpr={[1, 1.6]}
+            >
+              <ParticleField count={1600} />
+              <ambientLight intensity={0.4} />
+            </Canvas>
+          </div>
+        </>
+      )}
 
-      {/* Three.js Particle Layer (tech depth) */}
-      <div className="absolute inset-0 z-[1]">
-        <Canvas
-          camera={{ position: [0, 0, 14], fov: 52 }}
-          style={{ background: 'transparent' }}
-          gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
-          dpr={[1, 1.6]}
-        >
-          <ParticleField count={1600} />
-          <ambientLight intensity={0.4} />
-        </Canvas>
-      </div>
+      {/* Show fallback while Theme 2 loads */}
+      {ACTIVE_THEME === 'theme2' && !Theme2Component && (
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#050505] via-[#0a0908] to-[#141210]" aria-hidden="true" />
+      )}
 
       {/* Strong content overlay for readability */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(5,5,5,0.25)_0%,rgba(5,5,5,0.75)_65%)] z-[2]" />
@@ -138,6 +162,3 @@ export function Hero3D() {
     </section>
   );
 }
-
-// Support default import for Home.tsx while keeping named export
-export default Hero3D;
