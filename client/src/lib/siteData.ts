@@ -160,6 +160,13 @@ export const FAQ_ITEMS: { q: string; a: string }[] = [
   { q: "How is 617 East Trust different from LegalZoom?", a: "Unlike national platforms, 617 East Trust provides personalized, hands-on support from a team with 15+ years of Charlotte commercial banking experience. We answer the phone, know the local SBA lenders personally, and stay with you after the paperwork is done." },
 ];
 
+
+export const CASE_STUDIES = [
+  { outcome: '(K SBA 7(a) loan secured in 47 days', client: 'Cabinetry manufacturer', location: 'Southern Pines, NC', detail: 'Transferred from a denied application at a national bank. Restructured financials, prepared lender-ready package, secured approval with a preferred SBA lender.' },
+  { outcome: 'Credit score improved 132 points in 90 days', client: 'Restaurant owner', location: 'Fayetteville, NC', detail: 'Identified 11 inaccurate items across three bureaus. Filed disputes under FCRA. Removed 9 of 11, resulting in qualification for an SBA Microloan.' },
+  { outcome: 'LLC formed, website launched, first $15K booked in 60 days', client: 'Consulting startup', location: 'Raleigh, NC', detail: 'Same-day LLC filing, custom website with SEO, Google Business Profile setup, and foundational marketing launched in under two months.' },
+  { outcome: 'Saved $4,200/year in compliance penalties', client: 'Property management firm', location: 'Charlotte, NC', detail: 'Caught missed annual reports across three entities during onboarding. Brought all into good standing, built automated compliance calendar, and transitioned to monthly bookkeeping.' }
+];
 export const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Services", href: "/#services" },
   { label: "Why Us", href: "/#why-us" },
