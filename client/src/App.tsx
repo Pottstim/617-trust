@@ -18,6 +18,9 @@ import CreditRepairNorthCarolinaService from "@/pages/CreditRepairNorthCarolinaS
 import BookkeepingNorthCarolinaService from "@/pages/BookkeepingNorthCarolinaService";
 import FractionalCfoService from "@/pages/FractionalCfoService";
 import WebDesignSeoService from "@/pages/WebDesignSeoService";
+import SmoothScroll from "@/components/SmoothScroll";
+import GrainOverlay from "@/components/GrainOverlay";
+import LoadingSequence from "@/components/LoadingSequence";
 
 const SITE = {
   name: "617 East Trust",
@@ -124,31 +127,35 @@ export default function App() {
   }, [location]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-paper)]">
-      <ScrollProgress />
-      <Navbar />
-      <main className="flex-1">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/services" component={Services} />
-          <Route path="/services/llc-formation-north-carolina" component={LlcFormationNorthCarolinaService} />
-          <Route path="/services/sba-loans-north-carolina" component={SbaLoansNorthCarolinaService} />
-          <Route path="/services/credit-repair-north-carolina" component={CreditRepairNorthCarolinaService} />
-          <Route path="/services/bookkeeping-north-carolina" component={BookkeepingNorthCarolinaService} />
-          <Route path="/services/fractional-cfo" component={FractionalCfoService} />
-          <Route path="/services/web-design-seo" component={WebDesignSeoService} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/thank-you" component={ThankYou} />
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/terms" component={Terms} />
-          <Route>
-            <Home />
-          </Route>
-        </Switch>
-      </main>
-      <Footer />
-      <MobileCTABar />
-    </div>
+    <SmoothScroll>
+      <LoadingSequence />
+      <GrainOverlay />
+      <div className="min-h-screen flex flex-col bg-[var(--color-paper)]">
+        <ScrollProgress />
+        <Navbar />
+        <main className="flex-1">
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/services" component={Services} />
+            <Route path="/services/llc-formation-north-carolina" component={LlcFormationNorthCarolinaService} />
+            <Route path="/services/sba-loans-north-carolina" component={SbaLoansNorthCarolinaService} />
+            <Route path="/services/credit-repair-north-carolina" component={CreditRepairNorthCarolinaService} />
+            <Route path="/services/bookkeeping-north-carolina" component={BookkeepingNorthCarolinaService} />
+            <Route path="/services/fractional-cfo" component={FractionalCfoService} />
+            <Route path="/services/web-design-seo" component={WebDesignSeoService} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/thank-you" component={ThankYou} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
+            <Route>
+              <Home />
+            </Route>
+          </Switch>
+        </main>
+        <Footer />
+        <MobileCTABar />
+      </div>
+    </SmoothScroll>
   );
 }

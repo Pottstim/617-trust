@@ -65,11 +65,30 @@ function AnimatedHeadline({ text }: { text: string }) {
             }}
             className="inline-block"
           >
-            {char === ' ' ? '\u00A0' : char}
+            {char === ' ' ? ' ' : char}
           </motion.span>
         ))}
       </span>
     </h1>
+  );
+}
+
+// Branded loader shown while the 3D bundle streams in
+function HeroLoadingShimmer() {
+  return (
+    <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-carbon)] to-[var(--semantic-bg-card)]">
+      <div className="absolute inset-0 animate-pulse bg-[radial-gradient(circle_at_50%_40%,rgba(184,151,94,0.12)_0%,transparent_60%)]" />
+    </div>
+  );
+}
+
+// Static, performant fallback for mobile / no-WebGL devices
+function StaticHeroFallback() {
+  return (
+    <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0a0908] via-[#11100f] to-[#161514]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(184,151,94,0.18)_0%,transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(195,175,120,0.08)_0%,transparent_50%)]" />
+    </div>
   );
 }
 
@@ -78,10 +97,17 @@ const ACTIVE_THEME: 'theme1' | 'theme2' = 'theme2';
 
 export function Hero3D() {
   const [Theme2Component, setTheme2Component] = useState<React.ComponentType | null>(null);
-  
+  const [isLowPower, setIsLowPower] = useState(false);
+
   useEffect(() => {
-    // Lazy load Theme 2 component after initial render
-    if (ACTIVE_THEME === 'theme2') {
+    // Device capability detection — keep 3D off phones / no-WebGL contexts
+    const noWebGL = typeof window !== 'undefined' &&
+      !(window.WebGLRenderingContext && document.createElement('canvas').getContext('webgl'));
+    const smallScreen = window.matchMedia('(max-width: 768px)').matches;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setIsLowPower(Boolean(noWebGL || (smallScreen && reduced)));
+
+    if (ACTIVE_THEME === 'theme2' && !noWebGL) {
       import('./EvolvingTopography').then((mod) => {
         setTheme2Component(() => mod.EvolvingTopography);
       });
@@ -91,10 +117,15 @@ export function Hero3D() {
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[var(--color-void)] pt-16">
       {/* Theme 2: Evolving Topography (wireframe city + morphing particles) */}
-      {ACTIVE_THEME === 'theme2' && Theme2Component && (
+      {ACTIVE_THEME === 'theme2' && Theme2Component && !isLowPower && (
         <Theme2Component />
       )}
-      
+
+      {/* Low-power / mobile fallback */}
+      {ACTIVE_THEME === 'theme2' && (isLowPower || !Theme2Component) && (
+        <HeroLoadingShimmer />
+      )}
+
       {/* Theme 1: Original (NCBackground + Particle Field) */}
       {ACTIVE_THEME === 'theme1' && (
         <>
@@ -113,29 +144,39 @@ export function Hero3D() {
         </>
       )}
 
-      {/* Show fallback while Theme 2 loads */}
-      {ACTIVE_THEME === 'theme2' && !Theme2Component && (
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-carbon)] to-[var(--semantic-bg-card)]" aria-hidden="true" />
-      )}
-
       {/* Content overlay for readability */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(10,9,8,0.15)_0%,rgba(10,9,8,0.7)_65%)] z-[2]" />
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
-        <div className="mb-4 flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.21, 0.92, 0.26, 1] }}
+          className="mb-4 flex justify-center"
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs tracking-[0.12em] text-[var(--color-brass)] uppercase backdrop-blur-sm">
             {SITE.preHeader}
           </div>
-        </div>
+        </motion.div>
 
         <AnimatedHeadline text="Form. Grow. Maintain." />
 
-        <p className="mx-auto mt-6 max-w-2xl text-xl text-[var(--semantic-text-secondary)] tracking-tight">
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.21, 0.92, 0.26, 1] }}
+          className="mx-auto mt-6 max-w-2xl text-xl text-[var(--semantic-text-secondary)] tracking-tight"
+        >
           {SITE.thesis}
-        </p>
+        </motion.p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.7, ease: [0.21, 0.92, 0.26, 1] }}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <ButtonLink href="/contact" size="lg" className="group min-w-[220px]">
             Book a Free Consultation
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -150,7 +191,7 @@ export function Hero3D() {
             <Phone className="mr-2 h-4 w-4" />
             {SITE.phone} — We answer.
           </ButtonLink>
-        </div>
+        </motion.div>
       </div>
 
       {/* Trust signals — moved below the hero per taste-skill stack discipline */}

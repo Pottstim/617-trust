@@ -184,7 +184,7 @@ export const SITE = {
   emailHref: "mailto:hello@617east.com",
   smsHref: "sms:+19103151800",
   location: "Sandhills, North Carolina",
-  servingArea: "Based in the Sandhills. Serving the Sandhills, Raleigh, and Fayetteville regions.",
+  servingArea: "Based in the Sandhills. Serving the Sandhills, Raleigh, Fayetteville, and Charlotte regions.",
   thesis: "Technology builds fast. People build trust.",
   thesisFull: "Technology builds fast. People build trust. We\u2019re the people.",
   preHeader: "Form. Grow. Maintain.",
@@ -197,10 +197,10 @@ export const SITE = {
     bio: "15+ years in Charlotte commercial banking. UNC Charlotte graduate. Sandhills native."
   },
   address: {
-    street: "[STREET ADDRESS — ADD YOURS]",
+    street: "Sandhills",
     locality: "Sandhills",
     region: "NC",
-    postalCode: "[ZIP]",
+    postalCode: "",
     country: "US",
     full: "Sandhills, North Carolina"
   },

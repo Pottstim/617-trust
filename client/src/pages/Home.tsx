@@ -6,6 +6,7 @@ import {
   PROBLEM_STATS, FAQ_ITEMS,
 } from "@/lib/siteData";
 import { Hero3D } from "@/components/Hero3D";
+import CountUp from "@/components/CountUp";
 import {
   Phone, Check, ArrowRight, ChevronDown,
   TrendingUp, Building2, Shield, MessageSquare,
@@ -63,7 +64,9 @@ const Problem = () => {
               variants={itemVariants}
               className="card-cinematic p-6"
             >
-              <p className="text-3xl font-serif text-[var(--color-brass)]">{s.value}</p>
+              <p className="mt-2 text-5xl font-serif text-[var(--color-brass)]">
+                <CountUp value={s.value} />
+              </p>
               <p className="mt-2 text-sm text-[var(--semantic-text-secondary)] leading-relaxed">{s.label}</p>
               {s.source && <p className="mt-2 text-[10px] font-mono uppercase tracking-wider text-[var(--semantic-text-tertiary)]">{s.source}</p>}
             </motion.div>
