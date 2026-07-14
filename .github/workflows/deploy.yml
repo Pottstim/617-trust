@@ -36,15 +36,15 @@ jobs:
       - name: Verify build output
         run: |
           echo "Build output:"
-          ls -la client/dist/
-          echo "Total size: $(du -sh client/dist | cut -f1)"
+          ls -la dist/
+          echo "Total size: $(du -sh dist | cut -f1)"
 
       - name: Deploy to VPS via rsync
         uses: burnett01/rsync-deployments@7.0.0
         with:
-          switches: -avz --delete
-          path: client/dist/
-          remote_path: ${{ env.VPS_PATH }}/dist/
+          switches: -avz
+          path: dist/
+          remote_path: ${{ env.VPS_PATH }}/dist
           remote_host: ${{ env.VPS_HOST }}
           remote_user: ${{ env.VPS_USER }}
           remote_key: ${{ secrets.VPS_SSH_KEY }}
