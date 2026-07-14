@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 617east-web
+    restart: unless-stopped
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.617east.rule=Host(\"617east.com\")"
+      - "traefik.http.routers.617east.www.rule=Host(\"www.617east.com\")"
+      - "traefik.http.routers.617east.entrypoints=websecure"
+      - "traefik.http.routers.617east.www.entrypoints=websecure"
+      - "traefik.http.routers.617east.tls=true"
+      - "traefik.http.routers.617east.www.tls=true"
+      - "traefik.http.routers.617east.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.617east.www.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.617east.loadbalancer.server.port=80"
+
+networks:
+  traefik-network:
+    external: true
+    name: n8n_default
