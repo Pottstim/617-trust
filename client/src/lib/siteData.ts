@@ -79,27 +79,6 @@ export const PHASES: Phase[] = [
   },
 ];
 
-export type Testimonial = { quote: string; name: string; role: string; location: string; detail: string; };
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote: "617 East Trust helped me form my LLC, build my first real website, and secure an SBA loan — all in the same quarter. Robert at the cabinetry shop referred me, and I’m referring everyone I know.",
-    name: "Sarah M.", role: "Retail Owner", location: "Pinehurst, NC", detail: "Formation + Web + SBA Client",
-  },
-  {
-    quote: "They didn’t just file paperwork and leave. Six months in, they caught a compliance issue I didn’t even know about. That’s the difference.",
-    name: "Robert M.", role: "Cabinetry Shop Owner", location: "Sandhills, NC", detail: "Formation + Maintain Client",
-  },
-  {
-    quote: "The fractional CFO service changed how I run my business. I finally have forecasts I trust and someone who actually reads my numbers with me every quarter.",
-    name: "James T.", role: "Service Company Owner", location: "Raleigh, NC", detail: "Fractional CFO + Maintain Client",
-  },
-  {
-    quote: "I came for formation. I stayed for the bookkeeping. Best decision I made.",
-    name: "Maria L.", role: "Restaurant Owner", location: "Fayetteville, NC", detail: "Formation + Maintain Client",
-  },
-];
-
 export const HERO_TRUST_SIGNALS: Testimonial[] = [
   { quote: "They treated my business like it mattered.", name: "Sarah M.", role: "", location: "Pinehurst, NC", detail: "" },
   { quote: "Finally, someone who answers the phone.", name: "James T.", role: "", location: "Raleigh, NC", detail: "" },
@@ -204,7 +183,6 @@ export const SITE = {
     full: "Sandhills, North Carolina"
   },
   phases: PHASES,
-  testimonials: TESTIMONIALS,
   trustBadges: TRUST_BADGES,
   heroTrustSignals: HERO_TRUST_SIGNALS,
   howItWorks: STEPS,
