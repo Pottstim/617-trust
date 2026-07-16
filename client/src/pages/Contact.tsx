@@ -66,6 +66,19 @@ export default function Contact() {
           up — you're in the right place.
         </p>
 
+        {/* Positioning: the honest-advisor promise */}
+        <div className="mt-8 max-w-2xl rounded-[var(--radius-human)] border-l-4 border-[var(--color-brass)] bg-[var(--color-chalk)] px-6 py-5">
+          <p className="font-serif text-xl text-[var(--color-ink)] leading-snug">
+            The most important thing we do is tell you what <span className="italic">not</span> to do.
+          </p>
+          <p className="mt-3 text-sm text-[var(--color-graphite)] leading-relaxed">
+            Not every business should incorporate yet. Not every loan is worth the
+            interest. Not every expense is one to keep. Your first consultation is
+            a real conversation — we'll tell you the moves to skip, not just the
+            ones to make.
+          </p>
+        </div>
+
         {/* Direct contact options */}
         <div className="mt-10 grid sm:grid-cols-3 gap-4">
           <a href={SITE.phoneHref} className="bg-[var(--color-chalk)] rounded-[var(--radius-human)] p-6 border border-[var(--semantic-border-subtle)] hover:shadow-[var(--shadow-md)] transition-shadow">
