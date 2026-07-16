@@ -54,7 +54,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-[var(--color-chalk)]/70">
               <li><Link href="/about" className="hover:text-[var(--color-brass)] transition-colors">About Us</Link></li>
               <li><a href="/#story" className="hover:text-[var(--color-brass)] transition-colors">Our Story</a></li>
-              <li><a href="/#testimonials" className="hover:text-[var(--color-brass)] transition-colors">Testimonials</a></li>
+              <li><a href="/#why-us" className="hover:text-[var(--color-brass)] transition-colors">Why Us</a></li>
               <li><Link href="/contact" className="hover:text-[var(--color-brass)] transition-colors">Contact</Link></li>
             </ul>
           </div>

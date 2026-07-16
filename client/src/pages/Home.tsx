@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
 import {
-  SITE, PHASES, TESTIMONIALS, COMPARISON_ROWS,
+  SITE, PHASES, COMPARISON_ROWS,
   PROBLEM_STATS, FAQ_ITEMS,
 } from "@/lib/siteData";
 import { Hero3D } from "@/components/Hero3D";
@@ -258,7 +258,7 @@ const FinalCTA = () => {
         <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
           <h2 className="text-balance">Your business deserves more than a filing confirmation.</h2>
           <p className="mt-5 text-lg text-[var(--semantic-text-secondary)]">
-            Every month you wait is a month of missed compliance, missed funding, and missed momentum. The consultation is free. The cost of waiting is not.
+            The launch is the easy part. The years after \u2014 the compliance you forgot, the loan you should not have taken, the quarter that quietly bled \u2014 are where businesses die. We stay for that part, and we tell you what not to do before it costs you.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <ButtonLink href="/contact" size="lg" className="min-w-[240px]">
