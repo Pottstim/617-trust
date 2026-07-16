@@ -367,14 +367,6 @@
     letter-spacing: -0.04em;
   }
 
-  /* Tilt-on-hover for testimonial cards (lightweight-3d-effects) */
-  .tilt-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    will-change: transform;
-  }
-  .tilt-card:hover {
-    transform: perspective(1000px) rotateX(1deg) rotateY(-1deg) translateY(-2px);
-  }
 }
 
 /* ─────── Tier 1: Agency polish & accessibility ─────── */
@@ -410,7 +402,6 @@ html { scrollbar-color: var(--color-smoke) var(--color-void); scrollbar-width: t
 @media print {
   .grain-overlay,
   .scroll-progress,
-  .tilt-card,
   [class*="3d"],
   [class*="hero"],
   canvas { display: none !important; }
