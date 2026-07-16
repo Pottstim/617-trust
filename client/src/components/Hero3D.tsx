@@ -160,7 +160,7 @@ export function Hero3D() {
           </div>
         </motion.div>
 
-        <AnimatedHeadline text="Form. Grow. Maintain." />
+        <AnimatedHeadline text="The most important thing we do is tell you what not to do." />
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -168,7 +168,7 @@ export function Hero3D() {
           transition={{ duration: 0.7, delay: 0.5, ease: [0.21, 0.92, 0.26, 1] }}
           className="mx-auto mt-6 max-w-2xl text-xl text-[var(--semantic-text-secondary)] tracking-tight"
         >
-          {SITE.thesis}
+          {SITE.preHeader} Most advisors sell you the next step. We protect the one you shouldn't take.
         </motion.p>
 
         <motion.div

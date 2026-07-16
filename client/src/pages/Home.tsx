@@ -204,81 +204,6 @@ const WhyUs = () => {
   );
 };
 
-// Testimonials Section — Social Proof + Bandwagon Effect
-const Testimonials = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
-  return (
-    <section id="testimonials" className="relative py-20 md:py-28 border-t border-white/[0.06]" ref={ref}>
-      <div className="mx-auto max-w-5xl px-6">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-          <p className="section-heading">What Clients Say</p>
-          <h2 className="text-balance mt-3">Business owners who stayed.</h2>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mt-12 grid gap-6 md:grid-cols-2"
-        >
-          {TESTIMONIALS.map((t, i) => (
-            <motion.blockquote
-              key={i}
-              variants={itemVariants}
-              className="card-cinematic p-8 flex flex-col"
-            >
-              <div className="flex items-center gap-1 text-[var(--color-brass)] mb-4">
-                {"★★★★★"}
-              </div>
-              <p className="text-[var(--semantic-text-primary)] leading-relaxed flex-1">{t.quote}</p>
-              <footer className="mt-6 pt-4 border-t border-white/[0.06]">
-                <p className="font-medium text-sm">{t.name}</p>
-                <p className="text-xs text-[var(--semantic-text-tertiary)]">{t.role} {t.location && `· ${t.location}`}</p>
-              </footer>
-            </motion.blockquote>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-// How It Works — Activation Energy (reduce friction perception)
-const HowItWorks = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
-  return (
-    <section id="how-it-works" className="relative py-20 md:py-28 border-t border-white/[0.06] bg-white/[0.02]" ref={ref}>
-      <div className="mx-auto max-w-5xl px-6">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-          <p className="section-heading">How It Works</p>
-          <h2 className="text-balance mt-3">Three steps. No bureaucracy.</h2>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mt-12 grid gap-8 md:grid-cols-3"
-        >
-          {SITE.howItWorks.map((step, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="relative"
-            >
-              <div className="text-[var(--color-brass)] text-4xl font-serif mb-3">{step.num}</div>
-              <h3 className="text-xl mb-3">{step.title}</h3>
-              <p className="text-sm text-[var(--semantic-text-secondary)] leading-relaxed">{step.body}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
 // FAQ Section — Zeigarnik Effect (open loops) + Trust (transparency)
 const FAQ = () => {
   const [open, setOpen] = useState<number | null>(null);
@@ -360,7 +285,6 @@ export default function Home() {
       <Problem />
       <Phases />
       <WhyUs />
-      <Testimonials />
       <FAQ />
       <FinalCTA />
     </>

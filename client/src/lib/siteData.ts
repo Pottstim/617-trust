@@ -21,7 +21,7 @@ export const PHASES: Phase[] = [
     index: "01",
     name: "Form",
     tagline: "Get the business standing.",
-    description: "The foundation work most consultants do \u2014 and then abandon.",
+    description: "We start with the entity work that makes everything after it possible \u2014 the part most operators treat as a checkbox and then forget.",
     icon: "building",
     included: [
       "Entity Formation (LLC, S-Corp, C-Corp, Nonprofit)",
@@ -42,7 +42,7 @@ export const PHASES: Phase[] = [
     index: "02",
     name: "Grow",
     tagline: "Get the business moving.",
-    description: "The momentum work that separates real businesses from hobbies.",
+    description: "The growth work that separates businesses built to last from expensive hobbies.",
     icon: "trending",
     included: [
       "SBA Loan Consulting & Application Support",
@@ -62,7 +62,7 @@ export const PHASES: Phase[] = [
     index: "03",
     name: "Maintain",
     tagline: "Keep the business standing.",
-    description: "The ongoing work nobody else talks about. The reason most small businesses fail in years 2\u20135.",
+    description: "The unglamorous work nobody else stays for \u2014 the reason most small businesses quietly fail somewhere in years 2 through 5.",
     icon: "shield",
     included: [
       "Monthly Bookkeeping & Accounting",
@@ -74,7 +74,7 @@ export const PHASES: Phase[] = [
       "Succession & Exit Planning",
       "Quarterly Business Reviews",
     ],
-    closingLine: "Formation is a day. Growth is a season. Maintenance is the life of your business \u2014 and nobody else stays for it.",
+    closingLine: "Formation is a Tuesday. Growth is a season. Maintenance is the life of the business \u2014 and it is the part almost no one stays for.",
     color: "var(--color-sage)",
   },
 ];
@@ -125,7 +125,7 @@ export const COMPARISON_ROWS: { label: string; platform: string; consultant: str
 
 export const STEPS: { num: string; title: string; body: string }[] = [
   { num: "01", title: "Conversation", body: "We start with a conversation, not a form. Tell us about your business, your goals, your challenges. We\u2019ll tell you honestly if we can help and exactly how." },
-  { num: "02", title: "Strategy", body: "We build a custom plan using the right mix of technology and human expertise. No templates. No one-size-fits-all." },
+  { num: "02", title: "Strategy", body: "We build a custom plan from your actual situation \u2014 the right mix of technology and human judgment. No templates. No one-size-fits-all." },
   { num: "03", title: "Partnership", body: "We execute fast, communicate clearly, and stick around. This isn\u2019t a transaction \u2014 it\u2019s a relationship." },
 ];
 
@@ -145,7 +145,7 @@ export const TRUST_BADGES: string[] = [
 
 export const CREDENTIALS: string[] = [
   "15+ years in Charlotte commercial banking",
-  "UNC Charlotte graduate",
+  "UNC Charlotte graduate \u2014 Sandhills native, Charlotte banking veteran",
   "Sandhills, NC native and current resident",
   "SBA lending expertise from the lender side",
   "Web development and SEO certification",
@@ -186,15 +186,15 @@ export const SITE = {
   location: "Sandhills, North Carolina",
   servingArea: "Based in the Sandhills. Serving the Sandhills, Raleigh, Fayetteville, and Charlotte regions.",
   thesis: "Technology builds fast. People build trust.",
-  thesisFull: "Technology builds fast. People build trust. We\u2019re the people.",
-  preHeader: "Form. Grow. Maintain.",
-  trustBar: "Real People. Real Answers. Every time.",
+  thesisFull: "Technology builds fast. People build trust. We\u2019re the people who stay.",
+  preHeader: "617 East Trust \u2014 Business consulting, credit repair & entity formation",
+  trustBar: "The steward of the quiet after.",
   logoMark: "Form. Grow. Maintain.",
   founder: {
     name: "Lamont Legrand",
     photo: "/images/founder.jpg",
     linkedin: "",
-    bio: "15+ years in Charlotte commercial banking. UNC Charlotte graduate. Sandhills native."
+    bio: "15+ years in Charlotte commercial banking. UNC Charlotte graduate \u2014 Sandhills native who came home to build something that lasts."
   },
   address: {
     street: "Sandhills",
