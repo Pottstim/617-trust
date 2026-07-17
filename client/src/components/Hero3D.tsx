@@ -4,11 +4,12 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
-import { useMemo, useRef, useState, useEffect } from 'react';
+import { useMemo, useRef, useState, useEffect, lazy, Suspense } from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
 import { ButtonLink } from './ui/Button';
 import { SITE } from '@/lib/siteData';
-import { NCBackground } from './NCBackground';
+// NCBackground is only used in the inactive theme1 branch; lazy-load so it stays out of the main bundle.
+const NCBackground = lazy(() => import('./NCBackground'));
 
 // Theme 2: Evolving Topography of Trust
 // Toggle between original (NCBackground) and Theme 2 (EvolvingTopography)
@@ -129,7 +130,9 @@ export function Hero3D() {
       {/* Theme 1: Original (NCBackground + Particle Field) */}
       {ACTIVE_THEME === 'theme1' && (
         <>
-          <NCBackground variant="hero" intensity={0.75} />
+          <Suspense fallback={null}>
+            <NCBackground variant="hero" intensity={0.75} />
+          </Suspense>
           <div className="absolute inset-0 z-[1]">
             <Canvas
               camera={{ position: [0, 0, 14], fov: 52 }}
