@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  *
  * Respects prefers-reduced-motion: when set, the grain is static.
  */
-export function GrainOverlay({ opacity = 0.05 }: { opacity?: number }) {
+export function GrainOverlay({ opacity = 0.035 }: { opacity?: number }) {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { SITE } from "@/lib/siteData";
-import { Phone, Mail, Send, Check, MessageSquare } from "lucide-react";
+import { Phone, Mail, Send, Check, MessageSquare, CheckCircle } from "lucide-react";
 
 const services = [
   "Business Formation",
-  "SBA Funding & Capital",
   "Web Design & SEO",
   "Consumer Credit Repair",
   "Not sure yet — just exploring",
@@ -14,6 +13,7 @@ const services = [
 export default function Contact() {
   const [, navigate] = useLocation();
   const [submitting, setSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -40,7 +40,8 @@ export default function Contact() {
       });
       if (res.ok) {
         try { (window as any).trackConversion('form_submit', { service: form.service || 'unknown' }); } catch {}
-        navigate("/thank-you");
+        setSent(true);
+        setTimeout(() => navigate("/thank-you"), 1400);
       } else {
         alert("Something went wrong. Please try again or call us directly.");
       }
@@ -171,6 +172,10 @@ export default function Contact() {
                 <>
                   <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Sending…
+                </>
+              ) : sent ? (
+                <>
+                  <CheckCircle size={18} /> Sent — we'll reply within one business day
                 </>
               ) : (
                 <>
