@@ -25,8 +25,8 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    try {
-      const res = await fetch("https://n8n.liberatedphoenix.net/webhook/617east-contact", {
+          try {
+      const res = await fetch("https://n8n.617east.com/webhook/617east-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
