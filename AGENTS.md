@@ -63,10 +63,14 @@ bash /home/debian/617east/redeploy.sh
 - sitemap.xml + robots.txt verified live (pre-edge-regression).
 - NOTE: when real LinkedIn/GBP/social URLs are confirmed by the principal, re-add `sameAs` array and `founder.url` — they're intentionally omitted, not forgotten.
 
-## Analytics / n8n webhook state (2026-07-18)
-- n8n runs on the VPS at `n8n.617east.com` (healthy, `{"status":"ok"}`); admin token provided by principal 2026-07-18 (JWT, expires ~2026-04 per `exp` claim — treat as session-scoped, do not commit).
-- The contact form's lead-capture webhook historically POSTs to n8n; the internal route returns `000` (Caddy not proxying the webhook path). This sits under the same edge regression as the main site.
-- Form-submit handler calls `trackConversion` on any response (success or failure) so lead-conversion events fire even if the webhook is unreachable — per principal's "both and keep as fallback" call.
+## Analytics / n8n webhook state
+- n8n runs on the VPS at `n8n.617east.com` (v2.31.5, container `n8n`, network `n8n_default`, healthy). Caddy proxy works for all paths under `n8n.617east.com` (already reverse-proxies `n8n:5678` whole-host — no per-path rule needed).
+- **Contact webhook RESOLVED 2026-07-24:** `POST https://n8n.617east.com/webhook/617east-contact` now returns HTTP 200 with `{"success":true,"message":"Contact form received - Monsuier Legrand office will respond within 24 hours."}`. Verified live with a real contact-form payload.
+- Root cause was NOT Caddy (Caddy was already proxying `/webhook/*` via whole-host reverse_proxy). It was the workflow itself: a persisted Webhook node graph had `httpMethod` unset (defaulted to GET) + a broken connection schema (`connections.Webhook.main` triple-nested `[[[]]]` referencing no node). n8n v2.x therefore 500'd on every POST with `Cannot read properties of undefined (reading 'node')`.
+- Resolution path: rewrote `workflow_entity` `nodes` + `connections` JSON with a clean Webhook node (`httpMethod:POST`, `responseMode:responseNode`) → Respond to Webhook (`respondWith:json`, expr body), then `n8n publish:workflow --id=FglHW367PXAI9rM3` (CLI) to re-version + re-register the webhook, then `docker restart n8n` to flush the stale registration cache. Do NOT toggle `workflow_entity.active` directly — n8n v2.x uses a published-version model (`workflow_history` + `activeVersionId`); `publish:workflow` is the correct activation primitive. `n8n workflow:activate` (used in earlier attempts) is deprecated and only mutates the `active` flag without rebuilding the webhook registration, which is why it produced the 500 + GET-only registration.
+- Canonical workflow JSON saved at `Projects/617east-source/n8n-workflows/617east-contact-workflow_FINAL_20260724.json`.
+- Postgres credentials (n8n-postgres-1): user `root`, db `n8n` (per `N8N_*` env). All workflow/webhook tables use case-sensitive quoted identifiers (`workflowId`, `webhookId`, `webhookPath`) — always double-quote them in SQL.
+- Form-submit handler keeps `trackConversion` as fallback on any response; with the webhook fixed, both succeed.
 
 ## Skill applied
 - `Skills/immersive-digital-architect/SKILL.md` (692 lines, ported from `immersive-7f3a976c5e9e.md`) — honest-advisor narrative voice, finance/consulting vertical reference. Applied to the narrative core, hero line, and omitted-testimonials call.
